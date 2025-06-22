@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<!-- Global Contents -->
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="css/home-page-style.css">
+		<title>My Portfolio</title>
+	</head>
+	
+	<body>
+		
+		<header class="main-header">
+			<!-- Header Contents and Link -->
+			<h1>Welcome to My Portfolio</h1>
+			<p>Type a command below to navigate.</p>
+		</header>
+		
+		<section class="terminal-container">
+			<!-- Command List Output -->
+			<div class="terminal-display" id="command-list">
+				<pre id="terminal-text" class="orange-text"></pre>
+			</div>
+			
+			<!-- Input/Output History -->
+			<div class="terminal-display" id="user-history">
+				<pre id="user-commands" class="orange-text"></pre>
+			</div>
+			
+			<!-- Input Field -->
+			<div class="terminal-input">
+				<span class="orange-text">&gt;</span>
+				<input type="text" id="command-input" autocomplete="off" placeholder="Enter a command...">
+			</div>
+			
+		</section>
+		
+		<section id="content-display" class="content-display">
+			<div id="content-display" style="display:none;"></div>
+		</section>
+		
+		<script src="js/terminal-logic-script.js"></script>
+	</body>
+	
+
+</html>
