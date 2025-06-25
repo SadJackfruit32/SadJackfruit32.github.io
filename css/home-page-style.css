@@ -100,3 +100,114 @@ body, html {
 /* --- TERMINAL INPUT SECTION END --- */
 
 
+/* --- POPUP TERMINAL WINDOWS START --- */
+.popup-terminal {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%) scale(0.95);
+    width: 600px;
+    max-width: 90%;
+    background-color: #1e1e1e;
+    border: 2px solid #333;
+    border-radius: 8px;
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c2c2c;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #444;
+    border-radius: 8px 8px 0 0;
+    font-size: 0.9rem;
+    color: #f5f5f5;
+}
+
+.window-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.window-buttons .btn {
+    /* btn configurations template */
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+    line-height: 16px;
+    font-size: 12px;
+    background-color: #444;
+    color: #fff;
+}
+
+.window-buttons .btn:hover {
+    /* Focused mode template */
+    background-color: darkorange;
+}
+
+.popup-content {
+    /* Content within popup window */
+    padding: 1rem;
+    font-family: monospace;
+    overflow: auto;
+    transition: opacity 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; 
+
+    max-height: 80vh;          
+    overflow-y: auto;
+
+    /* ... */
+}
+
+.popup-terminal.visible {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+    transition: 0.3 ease;
+}
+
+.popup-terminal.hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transform: translateX(-50%) scale(0.95);
+}
+
+.popup-terminal.minimized {
+    width: 300px;
+    height: 40px;
+    bottom: 10px;
+    left: 10px;
+    top: auto;
+    transform: none;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.popup-terminal.maximized {
+    width: 90vw;
+    height: 90vh;
+    top: 5vh;
+    left: 5vw;
+    transform: none;
+    transition: all 0.3s ease;
+}
+
+.popup-terminal.dragging {
+    opacity: 1;
+    cursor: move;
+}
+
