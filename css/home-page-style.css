@@ -211,3 +211,11 @@ body, html {
     cursor: move;
 }
 
+
+.image-sandbox-simuation-elements {
+  display: flex;             /* Make it a flex container */
+  gap: 1.5rem;               /* Add space between the image and the bullet points */
+  margin-top: 1rem;          /* Keep the margin from above content */
+  flex-wrap: wrap;           /* Allow items to wrap to the next line on smaller screens */
+}
+

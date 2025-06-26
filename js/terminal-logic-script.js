@@ -82,51 +82,7 @@ function handleCommand(text) {
     case 'developer project':
     case 'd':
       title = 'Developer Projects';
-      output = `
-        <center><h2 style="margin-top: 0;">Sandbox Simulation</h2></center>
-        <center><p style="color:#f93e3e; font-weight:bold;">An interactive learning experience to practice phyisics behaviours, UI development, and grid based interactivity.</p>
-        <p style="color:#f93e3e; font-weight:bold;">Development Time 3.5 weeks</p></center>
-        <p style="color:#FFFFFF; font-weight:normal;">I developed a 2D pixel based interactive layer with semi-realistic behaviours for selected elements using GdScript.</p>
-        
-        <p style="color:#FFFFFF; font-weight:normal;">This project simulates real-time semi-realistic physics and chemical interactions within a pixel-based, gridded environment, driven by user input. 
-        Designed for an educative experience, each pixel manages its own unique physical and chemical properties and has uniquely designed animations and reactions
-        based upon respective chemical combinations.</p>
-        
-        <p style="color:#FFFFFF; font-weight:normal;">The simulation utilizes a custom constructor for parameter initialization, boundary definition, and managing interaction timers as well as
-        utilizing Godot's inbuilt _process() function that updates the code based on processed frames allowing the project to deliver responsive and
-        dynamic animations."</p>
-
-        <div class="image-sandbox-simulation-behaviours">
-          <center>
-          <img src="assets/images/sandbox-simulation-image-1.png" alt="Sandbox Simulation Project Gas Preview 1" style="max-width: 300px; height: auto; border-radius: 4px; margin-top: 1rem;">
-          <img src="assets/images/sandbox-simulation-image-2.png" alt="Sandbox Simulation Project Gas Preview 2" style="max-width: 300px; height: auto; border-radius: 4px; margin-top: 1rem;">
-          </center>
-        </div>
-
-        <div class="image-sandbox-simuation-elements">
-          <img src="assets/images/sandbox-simulation-image-3.png" alt="Sandbox Simulation Project Elements Preview" style="max-width: 300px; height: auto; border-radius: 4px; margin-top: 1rem;">
-          <p> test </p>
-        </div>
-
-        <ul>
-          <li>Bulletpoint</li>
-          <li>Bulletpoint</li>
-        </ul>
-        
-        <button style="
-        background-color: #ff3b3b;
-        color: white;
-        padding: 0.5rem 1rem;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: bold;
-        margin-top: 1rem;
-        " onclick="window.open('assets/downloadable-content', '_blank')">
-        ⬇ Download Sandbox Project
-        </button>
-        
-        `;
+      output = Sandbox_Simulation_Content;
       break;
 
     case '2':
@@ -135,11 +91,9 @@ function handleCommand(text) {
     case 'game project':
     case 'g':
       title = '???';
-      output = `<h2>Game Design Projects</h2>
-                <ul>
-                  <li>...</li>
-                </ul>`;
+      output = Game_Projects_Content;
       break;
+    
     default:
       unknown = true;
       break;
@@ -212,6 +166,8 @@ function popupBehaviors(popup) {
   const maximizeBtn = popup.querySelector(".maximize");
   const closeBtn = popup.querySelector(".close");
   currentPopup = popup;
+  let isMoving = false;
+  let offset = { x: 0, y: 0 };
 
   // --- DRAG ---
   header.addEventListener("mousedown", (e) => {
@@ -308,6 +264,21 @@ function popupBehaviors(popup) {
   popup.style.transform = "translateX(-50%)";
 }
 
+
+function showNextPage(element) {
+  const popup = element.closest('.popup-terminal');
+  const contentNextPage = popup.querySelector('.popup-content');
+
+  contentNextPage.innerHTML = page2;
+}
+
+function showPreviousPage(element) {
+  const popup = element.closest('.popup-terminal');
+  const contentPreviousPage = popup.querySelector('.popup-content');
+  
+  contentPreviousPage.innerHTML = Sandbox_Simulation_Content;
+}
+
 // --- Start --- //
 document.addEventListener('DOMContentLoaded', () => {
   typeWriter_Letters(intro, () => {
@@ -317,3 +288,113 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// 1. DEVELOPER PROJECTS //
+// Page 1
+let Sandbox_Simulation_Content = `
+        <center><h2 style="margin-top: 0;">Sandbox Simulation</h2></center>
+        <center><p style="color:#f93e3e; font-weight:bold;">An interactive learning experience to practice phyisics behaviours, UI development, and grid based interactivity.</p>
+        <p style="color:#f93e3e; font-weight:bold;">Development Time 3.5 weeks</p></center>
+        <center><p style="color:#FFFFFF; font-weight:normal;">I developed a 2D pixel based interactive layer with semi-realistic behaviours for selected elements using GdScript in Godot Engine.</p>
+        
+        <p style="color:#FFFFFF; font-weight:normal;">
+        This project simulates real-time physics and chemical interactions within a pixel-based, gridded environment. 
+        It was designed as an educative tool to help learn about the development in a 2D enviroment as well as to deepen my logistical understanding in programming. This project resembles
+        a well known browser game "Powder Toy", and inspired me to develop my own, basic variation.</p>
+        
+        <p style="color:#FFFFFF; font-weight:normal;">
+        The project actively updates each pixel in a given space and manages its own unique physical and chemical properties with uniquely designed animations and interactive features. 
+        The simulation utilizes a custom constructor for parameter initialization, boundary definition, and managing interaction timers to ensure timed mechanics are accounted for. </p>
+        
+        <p style="color:#FFFFFF; font-weight:normal;">
+        Aditionally, through the utilization of Godot's inbuilt _process() function, allowing for frame based updates ensures the project is able to deliver responsive and dynamic animations upon user inputs.</p></center>
+
+        <div class="image-sandbox-simulation-behaviours">
+          <center>
+            <img src="assets/images/sandbox-simulation-image-1.png" alt="Sandbox Simulation Project Gas Preview 1" style="max-width: 300px; height: auto; border-radius: 4px; margin-top: 1rem;">
+            <img src="assets/images/sandbox-simulation-image-2.png" alt="Sandbox Simulation Project Gas Preview 2" style="max-width: 300px; height: auto; border-radius: 4px; margin-top: 1rem;">
+            
+            <p> </p>
+
+            <p>Key features : </p>
+            <p>SHORT LEARNING EXPERIENCE (About 4 to 8 minutes)
+            Pixel based visuals
+            Achievemnts system
+            Keystroke tools and eraser + 5 elements with unique animations and behaviors
+            Physics based real-time chemical reactions and behavior</p>
+            
+            <img src="assets/images/sandbox-simulation-image-4.png" alt="Sandbox Simulation Project Achivement Preview" style="max-width: 300px; height: auto; border-radius: 4px;">
+            <img src="assets/images/sandbox-simulation-image-5.png" alt="Sandbox Simulation Project Achivement2 Preview" style="max-width: 300px; height: auto; border-radius: 4px;">
+          </center>
+        </div>
+
+        <div class="video-container">
+          <center>
+            <p> A downloadable project. Click below to get access to the following files: </p>
+            <video
+              src="assets/videos/sandbox-simulation-preview.mp4"
+              autoplay
+              loop
+              muted
+              playsinline
+              style="max-width: 530px; border-radius: 2px; margin-top: 0.2rem;">
+            </video>
+            <p></p>
+          </center>
+        </div>
+
+        <button style="
+          background-color: #ff3b3b;
+          color: white;
+          padding: 0.5rem 1rem;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-weight: bold;
+          margin-top: 0.7rem;
+          " onclick="window.open('assets/downloadable-content/sandbox-simulation-container.zip', '_blank')">
+          ⬇ Download Sandbox Project
+        </button>
+        
+        <br> <br>
+
+        <button style="
+          background-color: #007bff;
+          color: white;
+          padding: 0.5rem 1rem;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-weight: bold;
+          margin-top: 0.5rem;
+          " onclick="showNextPage(this)">
+          ➡ Next Page
+        </button>
+        `;
+// Page 2
+let page2 = `
+  <center><h2 style="margin-top: 0;">Client and Server Message Transmission</h2></center>
+
+
+
+
+
+
+
+  <button style="
+      background-color: #6c757d;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 1rem;
+    " onclick="showPreviousPage(this)">
+    ⬅ Back
+  </button>
+  `;
+
+
+
+let Game_Projects_Content =   ` `;
