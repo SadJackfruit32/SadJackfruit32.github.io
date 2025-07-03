@@ -1,0 +1,121 @@
+
+
+body, html {
+    margin: 0;
+    font-family:'Courier New', monospace;
+    background-color: #121212;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.navigation-bar-top {
+    position: sticky;
+    top: 0;
+    background-color: #1e1e1e;
+    padding: 1rem;
+    border-bottom: 1px solid #333;
+    z-index: 1000;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.footer-bar-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #1e1e1e;
+    padding: 1rem;
+    border-top: 1px solid #333;
+    text-align: left;
+    z-index: 1000;
+}
+
+.return-button {
+    font-family: monospace;
+    background-color: transparent;
+    border: 1px thin darkorange;
+    color: darkorange;
+    padding: 0.2rem 0.4rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.footer return-button:hover {
+    background-color: rgba(255, 140, 0, 0.1);
+}
+
+
+
+
+/* --- --- --- --- --- --- --- --- --- */
+/* ---  Blog Post Content Styles   --- */
+/* --- --- --- --- --- --- --- --- --- */
+
+.blog-post {
+  margin: 2rem auto;  
+  padding: 20px;
+  flex-direction: column;
+  max-width: 1700px;
+  color: #ccc;
+  font-family: 'Courier New', monospace;
+}
+
+.post-header {
+  background-color: #1e1e1e; 
+  padding: 1rem 1.5rem;
+  border: 1px solid #333;
+  border-radius: 4px 4px 0 0; 
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.post-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: darkorange;
+}
+
+.post-subheader {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #aaa;
+  font-weight: normal;
+}
+
+.seperator {
+  height: 5px;
+  background-color: transparent;
+}
+
+.post-body {
+  display: flex;
+  border: 1px solid #444;
+  border-top: none; 
+  border-radius: 0 0 4px 4px;
+  background-color: #2a2a2a; 
+  overflow: hidden; 
+}
+
+.post-content {
+  flex: 3; 
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  white-space: pre-wrap;
+  color: #ddd;
+  text-align: left;
+}
+
+.post-side-rectangle {
+  font-size: 0.9rem;
+  flex: 1;
+  background-color: #3b3b3b; 
+  border-left: 1px solid #555;
+  padding: 1rem;
+}

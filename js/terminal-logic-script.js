@@ -14,6 +14,8 @@ let isMaximized = false;
 let isMinimized = false;
 let offset = {x: 0, y: 0};
 
+const loadedHomePage = sessionStorage.getItem('homepageVisited') === 'true';
+
 const openSFX = document.getElementById('popup-open-sfx');
 const closeSFX = document.getElementById('popup-close-sfx');
 const ambience = document.getElementById('ambient');
@@ -22,7 +24,10 @@ const ambience = document.getElementById('ambient');
 const intro = "Type a command below to navigate\n\n";
 const commands = [
   "1. Developer Projects",
-  "2. Game Projects"
+  "2. Game Projects",
+  "3. Blog Activity",
+  /*"4. About Me"*/
+  "4. Contact Me"
 ];
 
 // --- Ready --- ///
@@ -80,6 +85,7 @@ function handleCommand(text) {
     case '1.':
     case 'developer':
     case 'developer project':
+    case 'developer projects':
     case 'd':
       title = 'Developer Projects';
       output = Sandbox_Simulation_Content;
@@ -89,9 +95,32 @@ function handleCommand(text) {
     case '2,':
     case 'game':
     case 'game project':
+    case 'game projects':
     case 'g':
       title = '???';
       output = Game_Projects_Content;
+      break;
+    
+    case '3':
+    case '3.':
+    case 'blog activity':
+    case 'blog':
+    case 'activity':
+      sessionStorage.setItem('homepageVisited', 'true'); 
+      window.location.href = 'blog-activity.html';
+      break;
+    
+    /*case '4':
+      output = About_Me;
+      break;*/
+    
+    case '4':
+    case '4.':
+    case 'contact me':
+    case 'contact':
+    case 'c':
+      title = 'Contact Me';
+      output = Contact_Me_Content;
       break;
     
     default:
@@ -208,6 +237,7 @@ function popupBehaviors(popup) {
   closeBtn.addEventListener("click", () => {
     playSound(closeSFX);
     setTimeout(() => popup.classList.add('hidden'), 300);
+    currentPage = 0;
   });
 
   // --- MINIMIZE ---
@@ -265,35 +295,74 @@ function popupBehaviors(popup) {
 }
 
 
+// LETS DO THE PAGES LIKE THIS AND CYCLE THROUGH THEM INSTEAD OF HAVING
+// MULTIPLE FUNCTIONS
+// WE ARE MISSING THE THIRD PAGE CONTAINING OUR PROJECT ON NETWORK AND WEBSITE SECURITY
 function showNextPage(element) {
   const popup = element.closest('.popup-terminal');
   const contentNextPage = popup.querySelector('.popup-content');
+  contentNextPage.scrollTop = 0;
 
-  contentNextPage.innerHTML = page2;
+  if (currentPage < devProjectPages.length - 1) {
+    currentPage += 1;
+    contentNextPage.innerHTML = devProjectPages[currentPage];
+  }
 }
 
 function showPreviousPage(element) {
   const popup = element.closest('.popup-terminal');
   const contentPreviousPage = popup.querySelector('.popup-content');
-  
-  contentPreviousPage.innerHTML = Sandbox_Simulation_Content;
+  contentPreviousPage.scrollTop = 0;
+
+  if (currentPage > 0) {
+    currentPage -= 1;
+    contentPreviousPage.innerHTML = devProjectPages[currentPage];
+  }
 }
 
 // --- Start --- //
 document.addEventListener('DOMContentLoaded', () => {
-  typeWriter_Letters(intro, () => {
-    typeWriter_Words(commands, 0, () => {
-      input.disabled = false;
-      input.focus();
+  console.log("Is home page loaded true/false: ", loadedHomePage);
+  if (loadedHomePage === false) {
+      typeWriter_Letters(intro, () => {
+        typeWriter_Words(commands, 0, () => {
+          input.disabled = false;
+          input.focus();
+      });
     });
-  });
+  }
+
+  else {
+    for (let char of intro) {
+      const text = document.createElement('text');
+      if (/[0-9.]/.test(char)) {
+        text.classList.add('orange');
+      }
+      text.textContent = char;
+      terminalText.appendChild(text);
+    }
+
+    commands.forEach(line => {
+      for (let char of line + '\n') {
+        const text = document.createElement('text');
+        if (/[0-9.]/.test(char)) {
+          text.classList.add('orange');
+        }
+        text.textContent = char;
+        terminalText.appendChild(text);
+      }
+    });
+
+    input.disabled = false;
+    input.focus();
+  }
 });
 
 // 1. DEVELOPER PROJECTS //
 // Page 1
 let Sandbox_Simulation_Content = `
-        <center><h2 style="margin-top: 0;">Sandbox Simulation</h2></center>
-        <center><p style="color:#f93e3e; font-weight:bold;">An interactive learning experience to practice phyisics behaviours, UI development, and grid based interactivity.</p>
+        <center><h2 style="margin-top: 0;">Project 1: Sandbox Simulation</h2></center>
+        <center><p style="color:#f93e3e; font-weight:bold;">An interactive learning experience to practice phyisics behaviours, UI development, and user interactivity. Written in GdScript with Godot Engine.</p>
         <p style="color:#f93e3e; font-weight:bold;">Development Time 3.5 weeks</p></center>
         <center><p style="color:#FFFFFF; font-weight:normal;">I developed a 2D pixel based interactive layer with semi-realistic behaviours for selected elements using GdScript in Godot Engine.</p>
         
@@ -356,8 +425,7 @@ let Sandbox_Simulation_Content = `
           ⬇ Download Sandbox Project
         </button>
         
-        <br> <br>
-
+        <br>
         <button style="
           background-color: #007bff;
           color: white;
@@ -366,35 +434,305 @@ let Sandbox_Simulation_Content = `
           border-radius: 5px;
           cursor: pointer;
           font-weight: bold;
-          margin-top: 0.5rem;
+          margin-top: 1rem;
           " onclick="showNextPage(this)">
           ➡ Next Page
         </button>
+
+        <br>
+
+        <footer>
+          <p class="copyrights">
+            © 2025 Alex Perello Baque alias SadJackfruit32. All rights reserved. Distributed under CC BY-NC-ND 4.0.
+          </p>
+          </footer>
         `;
+
 // Page 2
-let page2 = `
-  <center><h2 style="margin-top: 0;">Client and Server Message Transmission</h2></center>
+let UDP_Transfer_Protocol = `
+  <center><h2 style="margin-top: 0;">Project 2: UDP Encryption Protocol Simulation</h2></center>
 
+  <center><p style="color:#f93e3e; font-weight:bold;">A trivial messaging program that simulates 
+  server to client communications with UDP encryption and packet loss. Feautres a basic user
+  interface to manipulate configurable data. Written in Java with Intellij IDe.</p>
+  <p style="color:#f93e3e; font-weight:bold;">Development Time 8 weeks</p></center>
 
+  <center><p style="color:#FFFFFF; font-weight:normal;">
+  The TFTP protocol enables the implementation of file transfers through UDP over a network 
+  given a specified server and client, source and destination. Specifically, the server sided 
+  project program is used to communicate and initiate the initial connection with the client, 
+  enabling the primary function of TFTP (transferring files).
+  </p>
 
+  <p>
+  The program will take a given message and construct it into a simulated packet composing of
+  a destination port, source port, sequence number, acknowledgement number, checksums, and the
+  datas contents. The data is given a maxPacketSize, a variable enabling the function to set byte
+  sized for each packet (default set to 512 bytes according to the RF130 manual for TFTP protocol).
+  </p>
 
+  <p>
+  Once the packet is ready, the program will communicate via IP adress ports with its reciever
+  counterpart. (InetAdress libraries and Datagrams were used to facilitate the access of addresses
+  and sending of packets over specified ports).
+  </p>
 
+  <br>
 
+  <div class="video-container">
+    <center>
+      <p> User Interface Preview </p>
+      <video
+        src="assets/videos/UDP-transfer-protocol-preview.mp4"
+        autoplay
+        loop
+        muted
+        playsinline
+        style="max-width: 530px; border-radius: 2px; margin-top: 0.2rem;">
+      </video>
+      <p></p>
+    </center>
+  </div>
+
+  <p>
+  The user can specify a specific simulated packet loss for the programs packets, lost packets are
+  handled via four protocols including;</center>
+    <ol>
+      <li>No packet recieved (resolved via timeout, signalling a retransmission of the packet)/li>
+      
+      <li>Variation in packet bytes + No acknowledgement byte (The acknowledgment byte 
+      contains a value which signals a program that all bytes have been recieved and the communication
+      between server and client can be terminated. Without an valid acknowledgement value, a timeout is
+      issued, signalling the retransmission of the packets bytes.</li>
+
+      <li>Variation in packet bytes (Missing bytes are retransmitted utilising their issued identification 
+      values)</li>
+
+      <li>All bytes recieved (No retransmission is required, a handshake closure for the TFTP
+      communications. The program will terminate.) </li>
+    </ol>
+  </p>
+  <br>
+
+  <div class="video-container">
+    <center>
+      <p> Real Time Server to Client Communications </p>
+      <video
+        src="assets/videos/UDP-transfer-protocol-preview-2.mp4"
+        autoplay
+        loop
+        muted
+        playsinline
+        style="max-width: 530px; border-radius: 2px; margin-top: 0.2rem;">
+      </video>
+      <p></p>
+    </center>
+  </div>
 
   <button style="
-      background-color: #6c757d;
-      color: white;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 1rem;
+    background-color: #ff3b3b;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 0.7rem;
+    " onclick="window.open('assets/downloadable-content/UDP Encryption Protocol Simulation.zip', '_blank')">
+    ⬇ Download UDP Project
+  </button>
+
+  <br>
+
+  <button style="
+    background-color: #6c757d;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 1rem;
     " onclick="showPreviousPage(this)">
     ⬅ Back
   </button>
+
+  <button style="
+    background-color: #007bff;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 0.5rem;
+    " onclick="showNextPage(this)">
+    ➡ Next Page
+  </button>
+
+  <footer>
+  <p class="copyrights">
+    © 2025 Alex Perello Baque alias SadJackfruit32. All rights reserved. Distributed under CC BY-NC-ND 4.0.
+  </p>
+  </footer>
   `;
 
+// Page 3
+let Wesbite_Security = `
+  <center><h2 style="margin-top: 0;">Project 3: Website Cybersecurity</h2></center>
+
+  <center><p style="color:#f93e3e; font-weight:bold;"></p>
+  <p style="color:#f93e3e; font-weight:bold;">A simple website demo exploring frontend and backend techniques, secure authentication, password policies, and defenses against SQL injection, brute force, and bot attacks. Features include database design, credential encryption, and email-based password recovery. Written in Javascript, HTML, and css.</p>
+  <p style="color:#f93e3e; font-weight:bold;">Development Time 6 weeks</p></center></center>
+
+  <center>
+  <p>The website is designed to simulate an antique marketplace, where users can create accounts to submit and sell vintage items. This marketplace functionality allows for a practical context for the site's security features, ensuring that user data, listings, and accounts are protected.</p>
+  <p>As a result, the project aims to represent a full-stack web application designed to practice modern web development techniques with focus on cybersecurity, user authentication, and data protection through the incorporation of a custom user management system, defensive approaches to programming against common attacks, and password handling techniques.</p>
+  </center>
+
+  <div class="page-views">
+    <center>
+      <p>The home page and upload pages are fully interactable, users are able to upload their marketplace images to the database directly and can be found under .../static/uploads file path</p>
+      <img src="assets/images/website-example-home-page.png" style="max-width: 250px; height: auto; border-radius: 4px; margin-top: 0.5rem;">
+      <img src="assets/images/uploading-to-marketplace-example.png" style="max-width: 250px; height: auto; border-radius: 4px; margin-top: 0.5rem;">
+
+      <p>The databse structure designed for the website</p>
+      <img src="assets/images/database-structure-preview.png" style="max-width: 300px; height: auto; border-radius: 4px; margin-top: 0.5rem;">
+    
+      <p>Security features including password hashing (PBKDF2 and salting), security questions, brute force protection, SQL injection mitigation, flash feedback system, and session handling via Flask-Login</p>
+      <p>Password Hashing and Salting (PBKDF2)</p>
+      <img src="assets/images/password-hashing-preview.png" style="max-width: 550px; height: auto; border-radius: 4px; margin-top: 0.5rem;">
+
+      <p>SQL mitigation</p>
+      <img src="assets/images/sql-mitigation.png" style="max-width: 550px; height: auto; border-radius: 4px; margin-top: 0.5rem;">
+
+      </center>
+  </div>
+
+  <br>
+
+  <center><p style="color:#f93e3e; font-weight:bold;">The website is no longer running, however I have attached a bat program that will automatically set it up on your local host if you're interested in taking a peek!</p></center>
+
+  <button style="
+    background-color: #ff3b3b;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 0.7rem;
+    " onclick="window.open('assets/downloadable-content/website-cyber-security.zip', '_blank')">
+    ⬇ Download UDP Project
+  </button>
+
+  <br>
+  <button style="
+    background-color: #6c757d;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 1rem;
+    " onclick="showPreviousPage(this)">
+    ⬅ Back
+  </button>
 
 
-let Game_Projects_Content =   ` `;
+
+  <footer>
+  <p class="copyrights">
+    © 2025 Alex Perello Baque alias SadJackfruit32. All rights reserved. Distributed under CC BY-NC-ND 4.0.
+  </p>
+  </footer>
+  
+`;
+
+// 2. GAME PROJECTS ..
+// Page 1
+let Game_Projects_Content = ` `;
+
+// 3. BLOG ACTIVITY //
+
+
+
+// 4. CONTACT ME //
+let Contact_Me_Content = `
+  <section class="contact-me-section">
+    <h2>Contact Me</h2>
+    <p>Email: <a href="mailto:alexperellobaque2020@gmail.com">alexperellobaque2020@gmail.com</a></p>
+    <p>Phone: <a href="tel:+1234567890">+34 641-65-12-95</a></p>
+
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/alex-perello-baque/" target="_blank" class="social-button">
+        <img src="assets/images/linkedin.png" alt="LinkedIn" />
+        LinkedIn
+      </a>
+
+      <a href="https://www.instagram.com/donthaveaninstagramprofileyeterror404" target="_blank" class="social-button">
+        <img src="assets/images/instagram.png" alt="Instagram" />
+        Instagram
+      </a>
+
+      <a href="https://github.com/SadJackfruit32" target="_blank" class="social-button">
+        <img src="assets/images/github.png" alt="github" />
+        GitHub
+      </a>
+    </div>
+  </section>
+`;
+
+
+let devProjectPages = [Sandbox_Simulation_Content, UDP_Transfer_Protocol, Wesbite_Security];
+let currentPage = 0;
+
+
+// 3. OTHER //
+// About me introduction to site (not used)
+let About_Me = `
+<!-- ABOUT ME SPACE SECTION -->
+<section class="about-me-section">
+  <div class="left-column">
+    <img src="assets/images/profile-picture.jpg" alt="Alex Perello Baque" class="profile-pic">
+    <div class="about-me-content">
+      <h2>Alex Perello Baque</h2>
+      <p>University of Sussex Graduate</p>
+
+      <div class="social-icons">
+        <a href="#"><img src="github-icon.svg" alt="GitHub" /></a>
+        <a href="#"><img src="linkedin-icon.svg" alt="LinkedIn" /></a>
+      </div>
+
+      <h3>Skills</h3>
+      <div class="skills">
+        <span class="skill">GdScript</span>
+        <span class="skill">Java</span>
+        <span class="skill">JavaScript</span>
+        <span class="skill">HTML</span>
+        <span class="skill">Python</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-column">
+    <section class="about-me-simple">
+      <h2>About Me</h2>
+      <p>Hi, I’m Alex, im passionate about my creative approaches with the development of software and have a background in software engineering and business technology.</p>
+    </section>
+
+    <section class="latest-blog-activity">
+      <h2>Latest Blog Post</h2>
+      <div class="latest-post">
+        <h3>Example Blog Title</h3>
+        <div class="post-date">June 30, 2025</div>
+        <div class="post-excerpt">
+          This is a short excerpt from the latest blog post...
+        </div>
+        <a href="blog-activity.html">Read More</a>
+      </div>
+    </section>
+  </div>
+</section>
+`;

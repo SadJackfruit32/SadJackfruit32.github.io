@@ -21,9 +21,17 @@ body, html {
 
 .main-header {
     /* --- Header Contents --- */
-    margin-top: 100px;
+    margin-top: 80px;
     text-align: center;
-    margin-bottom: 100px;
+    margin-bottom: 25px;
+    padding: auto;
+}
+
+.main-header p {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-align: center;
 }
 
 .terminal-container {
@@ -45,23 +53,24 @@ body, html {
 }
 
 .terminal-display .orange {
-  color: darkorange;
+    color: darkorange;
 }
 
 .terminal-display {
     /* --- Terminal Display Style --- */
     background-color: #1e1e1e;
-    height: 100px;
-    max-height: 100px;
+    height: 120px;           
+    max-height: 120px;       
     padding: 1rem;
     border-radius: 6px;
     border: 1px solid #333;
-    overflow-y: hidden;
+    overflow-y: auto;        
     display: flex;
-    align-items: center;
+    align-items: flex-start; 
     white-space: pre-wrap;
     flex-shrink: 0;
 }
+
 
 .white-text {
     color: white;
@@ -213,9 +222,215 @@ body, html {
 
 
 .image-sandbox-simuation-elements {
-  display: flex;             /* Make it a flex container */
-  gap: 1.5rem;               /* Add space between the image and the bullet points */
-  margin-top: 1rem;          /* Keep the margin from above content */
-  flex-wrap: wrap;           /* Allow items to wrap to the next line on smaller screens */
+  display: flex;            
+  gap: 1.5rem;              
+  margin-top: 1rem;          
+  flex-wrap: wrap;          
 }
+
+.copyrights {
+    text-align: center;
+    font-size: 0.70em;
+    margin-top: 20px; 
+    padding-right: 15px;
+}
+
+
+
+    /*  About Me Style  */
+    /* --- --- --- ---  */
+
+.about-me-section {
+  max-width: 800px;
+  margin: 3rem auto 0 auto;
+  margin-bottom: 5rem;
+  display: flex;
+  gap: 2rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.left-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid orange;
+  margin-bottom: 0.1rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1rem; 
+}
+
+.social-icons img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+  transition: 0.3s;
+}
+
+.social-icons img:hover {
+  filter: brightness(0) invert(0.6);
+}
+
+.about-me-content {
+  width: 100%;
+  color: #ddd;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  justify-content: center;
+}
+
+.skill {
+  background-color: transparent;
+  border: 1px solid #888;
+  padding: 0.3rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #ffa500;
+}
+
+.right-column {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  box-sizing: border-box;
+}
+
+.seperator {
+  height: 20px;
+  background-color: transparent;
+}
+
+
+.about-me-container {
+    /* --- Container for Terminal Contents --- */
+    font-family: monospace;
+    background-color: #121212;
+    border: 2px solid #3c3c3c;
+    max-width: 800px;
+    margin: 0 auto;
+    justify-content: center;
+    padding: 0.25rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.about-me-container h2 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.7rem; 
+    font-weight: bold;
+    text-align: center;
+    color: white;
+}
+
+.about-me-container p {
+    margin-inline: 1rem;
+    margin-top: 0rem;         
+    margin-bottom: 0.2rem;  
+    text-align: center;
+    color: #f93e3e;
+}
+
+.about-me-container p2 {
+    margin-top: 0.7rem;         
+    margin-bottom: 0.8rem;  
+    text-align: center;
+}
+
+
+
+@media (max-width: 700px) {
+  .about-me-section {
+    flex-direction: column;
+  }
+  .left-column, .right-column {
+    flex: none;
+    width: 100%;
+  }
+  .right-column {
+    gap: 1.5rem;
+  }
+}
+
+
+
+
+/* contact me section */
+.contact-me-section {
+  background-color: #121212;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 2rem auto;
+  font-family: Arial, sans-serif;
+}
+
+.contact-me-section h2 {
+  font-size: 2rem;
+  margin-top: 0.1rem;
+  margin-bottom: 1rem;
+}
+
+.contact-me-section a {
+  color: #1e90ff;
+  text-decoration: none;
+}
+
+.contact-me-section a:hover {
+  text-decoration: underline;
+}
+
+.social-links {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.social-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #222;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.social-button:hover {
+  background-color: #333;
+}
+
+.social-button img {
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
+}
+
+
+
 
