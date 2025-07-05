@@ -479,12 +479,11 @@ let Sandbox_Simulation_Content = `
 
         <br>
 
-        <footer>
-          <p class="copyrights">
-            © 2025 Alex Perello Baque alias SadJackfruit32. All rights reserved. Distributed under CC BY-NC-ND 4.0.
-          </p>
-          </footer>
-        `;
+  <footer style="font-size: 0.8rem; color: #999; text-align: center; margin-top: 25px;">
+    © 2025 Alex Perello Baque (SadJackfruit32). All rights reserved.<br>
+    Project Sandbox Simulation is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener">CC BY-NC-ND 4.0</a>.
+  </footer>
+  `;
 
 // Page 2
 let UDP_Transfer_Protocol = `
@@ -608,10 +607,9 @@ let UDP_Transfer_Protocol = `
     ➡ Next Page
   </button>
 
-  <footer>
-  <p class="copyrights">
-    © 2025 Alex Perello Baque alias SadJackfruit32. All rights reserved. Distributed under CC BY-NC-ND 4.0.
-  </p>
+  <footer style="font-size: 0.8rem; color: #999; text-align: center; margin-top: 25px;">
+    © 2025 Alex Perello Baque (SadJackfruit32). All rights reserved.<br>
+    The project UDP Encryption Protocol Simulation is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener">CC BY-NC-ND 4.0</a>.
   </footer>
   `;
 
@@ -679,11 +677,9 @@ let Wesbite_Security = `
   </button>
 
 
-
-  <footer>
-  <p class="copyrights">
-    © 2025 Alex Perello Baque alias SadJackfruit32. All rights reserved. Distributed under CC BY-NC-ND 4.0.
-  </p>
+  <footer style="font-size: 0.8rem; color: #999; text-align: center; margin-top: 40px;">
+    © 2025 Alex Perello Baque (SadJackfruit32). All rights reserved.<br>
+    The project Website Cybersecurity is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener">CC BY-NC-ND 4.0</a>.
   </footer>
   
 `;
@@ -747,7 +743,7 @@ let Terminal_Game = `
   </section>
 
   <section class="section fade-in" style="animation-delay: 3s;">
-    <p class="project-terminales-intro">An ever shifting environment that warps and shifts...</p>
+    <p class="project-terminales-intro">An ever shifting environment that warps around the players head...</p>
     <h2 class="project-terminales-h2">The Theme:</h2>
     <p class="project-terminales-content">The game explores themes of isolation, horror of human experimentations, and memory. 
     The player is trapped in an environment that will be constantly shifting and mirroring the psychological effects of their 
@@ -777,8 +773,10 @@ let Terminal_Game = `
 </body>
 
 
-
-
+<footer style="font-size: 0.8rem; color: #999; text-align: center; margin-top: 25px;">
+  © 2025 Alex Perello Baque (SadJackfruit32). All rights reserved.<br>
+  Project Terminales is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener">CC BY-NC-ND 4.0</a>.
+</footer>
         
 `;
 
