@@ -19,6 +19,11 @@ const loadedHomePage = sessionStorage.getItem('homepageVisited') === 'true';
 const openSFX = document.getElementById('popup-open-sfx');
 const closeSFX = document.getElementById('popup-close-sfx');
 const ambience = document.getElementById('ambient');
+const muteButton = document.getElementById('mute-ambiance-btn');
+
+
+
+const projectTerminalesAmbiance = document.getElementById('project-terminales-ambient-sfx');
 
 // --- Commands List --- ///
 const intro = "Type a command below to navigate\n\n";
@@ -70,8 +75,15 @@ function typeWriter_Words(lines, index = 0, callback) {
 // --- Sound Player --- //
 function playSound(element) {
   element.volume = 1;
-  element.play().catch((e) => console.warn("Blocked by browser:", e));
-  console.log("Sound playing...");
+  if (element === projectTerminalesAmbiance) {
+    element.volume = 1;
+    element.loop = true;
+    element.play().catch((e) => console.warn("Blocked by browser:", e));
+  } else {
+    element.volume = 1;
+    element.play().catch((e) => console.warn("Blocked by browser:", e));
+    console.log("Sound playing...");
+  }
 }
 
 // --- Function Show User Command History --- //
@@ -79,6 +91,7 @@ function handleCommand(text) {
   let title = '';
   let output = '';
   let unknown = false;
+  let redirected = false;
 
   switch (text.toLowerCase()) {
     case '1':
@@ -87,6 +100,7 @@ function handleCommand(text) {
     case 'developer project':
     case 'developer projects':
     case 'd':
+      playSound(openSFX);
       title = 'Developer Projects';
       output = Sandbox_Simulation_Content;
       break;
@@ -97,50 +111,51 @@ function handleCommand(text) {
     case 'game project':
     case 'game projects':
     case 'g':
+      playSound(openSFX);
+      playSound(projectTerminalesAmbiance);
       title = '???';
-      output = Game_Projects_Content;
+      output = gameProjectPages;
       break;
-    
+
     case '3':
     case '3.':
     case 'blog activity':
     case 'blog':
     case 'activity':
-      sessionStorage.setItem('homepageVisited', 'true'); 
+    playSound(openSFX);
+    redirected = true; 
+    setTimeout(() => {
+      sessionStorage.setItem('homepageVisited', 'true');
       window.location.href = 'blog-activity.html';
-      break;
-    
-    /*case '4':
-      output = About_Me;
-      break;*/
-    
+    }, 1300); 
+    break;
+
     case '4':
     case '4.':
     case 'contact me':
     case 'contact':
     case 'c':
+      playSound(openSFX);
       title = 'Contact Me';
       output = Contact_Me_Content;
       break;
-    
+
     default:
       unknown = true;
       break;
   }
 
-  if (!unknown) {
-  playSound(openSFX);
-  userInput.innerHTML += `> ${text}\n`;
-
-  createPopup(title, output);
-}
-  else {
-    console.log("Unknown command entered by user..")
-    userInput.innerHTML += `<span style="color:red;"\n\n>Unknown command: <strong>${text}</strong></span>\n\n`;
+  if (!unknown && !redirected) {
+    userInput.innerHTML += `> ${text}\n`;
+    createPopup(title, output);
+  } else if (unknown) {
+    console.log("Unknown command entered by user...");
+    userInput.innerHTML += `<span style="color:red;">\n>Unknown command: <strong>${text}</strong></span>\n\n`;
   }
 
+  // Scroll to bottom of input container if available
   if (userInput.parentElement) {
-  userInput.parentElement.scrollTop = userInput.parentElement.scrollHeight;
+    userInput.parentElement.scrollTop = userInput.parentElement.scrollHeight;
   }
 }
 
@@ -236,6 +251,10 @@ function popupBehaviors(popup) {
   // --- CLOSE ---
   closeBtn.addEventListener("click", () => {
     playSound(closeSFX);
+    const ambiance = document.getElementById('project-terminales-ambient-sfx');
+    ambiance.loop = false;
+    ambiance.pause();
+
     setTimeout(() => popup.classList.add('hidden'), 300);
     currentPage = 0;
   });
@@ -320,9 +339,28 @@ function showPreviousPage(element) {
   }
 }
 
+
+let pageMutedProjectTerminales = false
+function muteThisPage() {
+  const ambiance = document.getElementById('project-terminales-ambient-sfx');
+  if (pageMutedProjectTerminales === false) {
+    console.log("Muting page")
+    ambiance.volume = 0;
+    muteButton.innerText = '🔊 Unmute';
+    pageMutedProjectTerminales = true;
+  } else {
+    console.log("Unmuting page")
+    ambiance.volume = 1;
+    muteButton.innerText = '🔇 Mute';
+    pageMutedProjectTerminales = false;
+  }
+}
+
 // --- Start --- //
 document.addEventListener('DOMContentLoaded', () => {
   console.log("Is home page loaded true/false: ", loadedHomePage);
+  muteButton.visible = false;
+
   if (loadedHomePage === false) {
       typeWriter_Letters(intro, () => {
         typeWriter_Words(commands, 0, () => {
@@ -652,10 +690,100 @@ let Wesbite_Security = `
 
 // 2. GAME PROJECTS ..
 // Page 1
-let Game_Projects_Content = ` `;
+let Terminal_Game = ` 
+<center><h2 style="margin-top: 0;">Game 1: Project Terminales <br>An Immersive CYOA Data Profiling Game</h2></center>
+<center><p style="color:#f93e3e; font-weight:bold;">Development Time 6 Months. Written in Godot Engine with GDScript.</p></center>
+
+<br>
+
+<body class="project-terminales">
+  <section class="section fade-in" style="animation-delay: 0s;">
+    <p class="project-terminales-intro">What psychological horrors hide within the facility's depths?</p>
+    <h2 class="project-terminales-h2">An Overview:</h2>
+    <p class="project-terminales-content">Amalgam Sciences is a narrative-driven psychological horror game set in an isolated, 
+    decaying research facility well below the ground. The game combines deep environmental storytelling alongside suspenseful 
+    gameplay and psychological horror elements to deliver an experience that will leave players questioning what’s real and 
+    what’s not.</p>
+
+    <p class="project-terminales-content">The player is unknowingly awoken in the shoes of an unnamed individual who finds themselves in a pitch black facility with 
+    no memory of who they are or how they arrived there. Equipped with only a basic flashlight, a sidearm, and an unreliable 
+    terminal, the player must navigate the dark and decaying halls of the facility to uncover the mysteries and dangers that 
+    are lurking within.
+    </p>
+  </section>
+
+  <section class="section fade-in" style="animation-delay: 1s;">
+    <p class="project-terminales-intro">A shadowy corporation, engaged in unethical experiments...</p>
+    <h2 class="project-terminales-h2">The Setting:</h2>
+    <p class="project-terminales-content">A corporation engaged in unethical experimentations including bioengineering and 
+    neural research. The building itself is a sprawling labyrinth of dark corridors, rusted machinery, and long forgotten 
+    experiments. While parts of the facility seem to still be operational, much of it has collapsed and has deteriorated with 
+    time. The air within the facility is thick with a smell of mildew, walls are cracked and peeling, and dust has settled in 
+    most places. There is a constant, oppressive sense that something within the facility is unimaginably wrong, with secrets 
+    and dangers yet to be uncovered.</p>
+
+    <p class="project-terminales-content">As the player progresses through different zones within the facility, they’ll be able to explore rooms filled with 
+    discarded equipment, abandoned personnel, and remnants of horrifying experiments gone wrong. The player will have to 
+    interact with various terminals and systems to unlock access to new areas, solve puzzles, and survive the terrifying 
+    creatures that stalk the corridors.
+    </p>
+  </section>
+
+  <section class="section fade-in" style="animation-delay: 2s;">
+    <p class="project-terminales-intro">An unnamed individual threatened by the deterioration...</p>
+    <h2 class="project-terminales-h2">The Narrative:</h2>
+    <p class="project-terminales-content">The central narrative storyline revolves around uncovering the truth about Amalgam 
+    Sciences, and the role the player has within its twisted history. The story begins with a mysterious awakening in an 
+    unfamiliar environment, with no indication of where they are, only coming across fragmented memories to rely on. As the
+    player explores the facility, they’ll come across cryptic notes, unsettling audio logs, and broken equipment and terminals 
+    that hint at the nature of the experiments being conducted.</p>
+
+    <p class="project-terminales-content">The game's narrative is driven by player exploration and their choices made 
+    throughout the game will determine how the story unfolds. There are no hand holding mechanics and players must piece 
+    together the story themselves through environmental storytelling, item interactions, and subtle clues found within the game 
+    world. As the player progresses, the narrative will deepen, revealing that they’re not just trapped in a physical location, 
+    but in a mind bending experimentation of human survival.
+    </p>
+  </section>
+
+  <section class="section fade-in" style="animation-delay: 3s;">
+    <p class="project-terminales-intro">An ever shifting environment that warps and shifts...</p>
+    <h2 class="project-terminales-h2">The Theme:</h2>
+    <p class="project-terminales-content">The game explores themes of isolation, horror of human experimentations, and memory. 
+    The player is trapped in an environment that will be constantly shifting and mirroring the psychological effects of their 
+    own deteriorating mental state. Every corner holds a new danger, every locked door could be a revelation, and every 
+    interaction with the environment offers the potential to uncover a deeper layer of the facility's grim history.</p>
+
+    <p class="project-terminales-content">Ultimately, the facility is about discovering the truth while struggling to hold onto 
+    one's own sanity. The game blurs the lines between reality and illusion represented by the characters' mental state, 
+    leaving players to question their own perceptions as they uncover secrets that lay other secrets to rest. Will the players 
+    escape, or will they succumb to the horrors that await.
+    </p>
+  </section>
+
+  <section class="section fade-in" style="animation-delay: 4s;">
+    <div class="video-container-project-terminales">
+      <center>
+        <video
+          src="assets/videos/PROJECT TRAILER - Terminales.mp4"
+          controls
+          playsinline
+          style="max-width: 510px; border-radius: 1px; margin-top: 0.2rem; margin-bottom: 0.2rem;">
+        </video>
+      </center>
+    </div>
+  </section>
+
+</body>
+
+
+
+
+        
+`;
 
 // 3. BLOG ACTIVITY //
-
+// Content
 
 
 // 4. CONTACT ME //
@@ -686,11 +814,37 @@ let Contact_Me_Content = `
 
 
 let devProjectPages = [Sandbox_Simulation_Content, UDP_Transfer_Protocol, Wesbite_Security];
+let gameProjectPages = [Terminal_Game]
 let currentPage = 0;
 
 
-// 3. OTHER //
-// About me introduction to site (not used)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// notused
 let About_Me = `
 <!-- ABOUT ME SPACE SECTION -->
 <section class="about-me-section">

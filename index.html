@@ -5,7 +5,8 @@
 		<!-- Global Contents -->
 		<audio id="popup-open-sfx" src="assets/sounds/openSFX.mp3" preload="auto"></audio>
 		<audio id="popup-close-sfx" src="assets/sounds/closeSFX.mp3" preload="auto"></audio>
-		<audio id="ambient" src="assets/sounds/something-ambient.mp3" autoplay loop preload="auto"></audio>
+		<!--<audio id="ambient" src="assets/sounds/something-ambient.mp3" autoplay loop preload="auto"></audio>-->
+		<audio id="project-terminales-ambient-sfx" src="assets/sounds/project-terminales-ambient-SFX.wav" preload="auto"></audio>
 				
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +15,13 @@
 	</head>
 	
 	<body>
+		<div id="ambiance-controls">
+			<button id="mute-ambiance-btn" style="
+			" onclick="muteThisPage()">
+			🔇 Mute
+			</button>
+		</div>
+		
 		<header class="main-header">
 			<h1>Welcome to My Project Portfolio</h1>
 			<p>Feel free to explore, download some of the projects I've made, and uncover hidden secrets! You can utilise the terminal-like space I've designed below to navigate the site.</p>
