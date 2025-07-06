@@ -15,30 +15,117 @@
 			Blog Activity
 		</div>
 		
+		<!-- BLOG POST 1 -->
+		<!-- BLENDER AND GODOT ENGINE MODELLING AND LIGHTING EFFECTS -->
 		<div class="content" id="blog-container">
 			<div class="blog-post">
 				<div class="post-header">
-					<h2 class="post-title">Blog Post Title</h2>
-					<h4 class="post-subheader">Subheader information</h4>
+					<h2 class="post-title">Exploring Blender and Godot: A Miniture Nature Scene and Lighting Experiment</h2>
+					<div class="seperator"></div>
+					<h4 class="post-subheader">Exploring Blenders ability to make low-poly retro assets and Godots lighting and enviroment system.</h4>
 				</div>
 				
-				<div class="seperator"></div>
+				<div class="seperator-subheader"></div>
 				
-				<div class="post-body">
+				<div class="post-body"> 
 					<div class="post-content">
-						<p>This is the content of the blog post</p>
+						<p>Over the past few days, I've dove into a small personal project combining one of my favorite game engines
+						with a modelling tool, <strong>Godot Engine</strong> and <strong>Blender</strong>. It started out as a simple excercise to get more comfortable
+						with some of Blender's general layout, tools, and modifiers but eventually evolved into something more visually
+						interesting and enjoyable for me to continue to explore.</p>
+						
+						<h2>The Idea</h2>
+						<p>I wanted to create a small tile or diorama featuring a single "zone" like space with a tree and some uneaven
+						terrain. The goal wasn't to create a realistic scenario but rather about understanding how I could tinker with
+						a small model to improve my understanding on shapes, lighting, and atmosphere as i'd been meaning to familiarise 
+						myself with blenders tools and modifiers and this seemed like the perfect way to go about it.</p>
+						
+						<p> I started by experimenting with primitive modifiers and meshes, particularly a plane and subdivision surface
+						tools which allowed me to refine the plane, adding organic imperfections. Similarly, through using the numpad
+						camera angles I was able to sculpt a basic stump for my tree which I could extrude upon to create more branches.</p>
+						
+						    <div class="image-row">
+							  <img src="assets/images/tree-solid-render.png" alt="Blender Render 1">
+							  <img src="assets/images/tree-material-render.png" alt="Blender Render 2">
+							</div>
+						
+						<h2>Moving to Godot: Shadow & Volumetric Light Tests</h2> 
+						<p>After finishing the model, I exported it into Godot to start playing with the lighting. I also imported a few
+						bare models (utilising only the branch meshes from my tree asset) to test how shadows, fog density, and omni lights
+						could be tweaked to set a mood.</p>
+						
+						<p>I plan to expand on this idea, maybe make more densly populated zones with different fauna. In a blender aspect
+						to further experiment and tinker with models and design elements, and in a Godots aspect to gamify the models into
+						their own little exploration. </p>
+						
+							<div class="image-row">
+							  <img src="assets/images/branch-model-godot-render.png" alt="Godot Render 1">
+							  <img src="assets/images/branch-model-2-godot-render.png" alt="Godot Render 2">
+							</div>
 					</div>
+					
 					<div class="post-side-rectangle">
-						<p>Side rectangle information</p>
+						<p>Post 7/6/2025</p>
+						<p>This tile scene is my first personal asset combining sculpting, modifiers, and engine lighting.</p>
+						<p>I used Godot’s volumetric tools and Blender’s sculpt brushes to experiment with light, shadow, and form. If you'd like to take a
+						closer look, I've provided the .blend file which can be downloaded below;</p>
+						<a class="download-btn" href="assets/downloadable-content-blog-posts/tree-blog-post-07-06-2025.blend" download>Download .blend</a>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 			
+		<!-- --- --- --- SEPERATOR --- --- --- -->
+		<div class="seperator-blog-posts"></div>
+		<!-- --- --- --- SEPERATOR --- --- --- -->
+		
+		<!-- BLOG POST 2 -->
+		<!-- ??? -->
+		<div class="content" id="blog-container">
+			<div class="blog-post">
+				<div class="post-header">
+					<h2 class="post-title">Test Title</h2>
+					<div class="seperator"></div>
+					<h4 class="post-subheader">Test subheader information</h4>
+				</div>
+				
+				<div class="seperator-subheader"></div>
+				
+				<div class="post-body"> 
+					<div class="post-content">
+						<p>test post</p>
+					</div>
+					
+					<div class="post-side-rectangle">
+						<p>test side information</p>
+						<!--<a class="download-btn" href="tree_tile.blend" download>Download .blend</a>-->
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<div class="footer-bar-bottom">
 			<span class="orange-text">&gt;</span>
 			<button class="return-button" onclick="window.location.href='index.html'">Return to Terminal</button>
 		</div>
+		
+		<script src="js/blog-post-script.js"></script>
 		
 	</body>
 </html>

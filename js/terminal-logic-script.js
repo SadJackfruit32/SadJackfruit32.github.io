@@ -19,7 +19,6 @@ const loadedHomePage = sessionStorage.getItem('homepageVisited') === 'true';
 const openSFX = document.getElementById('popup-open-sfx');
 const closeSFX = document.getElementById('popup-close-sfx');
 const ambience = document.getElementById('ambient');
-const muteButton = document.getElementById('mute-ambiance-btn');
 
 
 
@@ -30,9 +29,9 @@ const intro = "Type a command below to navigate\n\n";
 const commands = [
   "1. Developer Projects",
   "2. Game Projects",
-  "3. Blog Activity",
-  /*"4. About Me"*/
-  "4. Contact Me"
+  "3. Contact Me",
+  "",
+  "4. Blog Activity"
 ];
 
 // --- Ready --- ///
@@ -113,12 +112,22 @@ function handleCommand(text) {
     case 'g':
       playSound(openSFX);
       playSound(projectTerminalesAmbiance);
-      title = '???';
+      title = 'Game Projects';
       output = gameProjectPages;
       break;
 
     case '3':
     case '3.':
+    case 'contact me':
+    case 'contact':
+    case 'c':
+      playSound(openSFX);
+      title = 'Contact Me';
+      output = Contact_Me_Content;
+      break;
+
+    case '4':
+    case '4.':
     case 'blog activity':
     case 'blog':
     case 'activity':
@@ -130,16 +139,6 @@ function handleCommand(text) {
     }, 1300); 
     break;
 
-    case '4':
-    case '4.':
-    case 'contact me':
-    case 'contact':
-    case 'c':
-      playSound(openSFX);
-      title = 'Contact Me';
-      output = Contact_Me_Content;
-      break;
-
     default:
       unknown = true;
       break;
@@ -150,7 +149,7 @@ function handleCommand(text) {
     createPopup(title, output);
   } else if (unknown) {
     console.log("Unknown command entered by user...");
-    userInput.innerHTML += `<span style="color:red;">\n>Unknown command: <strong>${text}</strong></span>\n\n`;
+    userInput.innerHTML += `<span style="color:red;">>Unknown command: <strong>${text}</strong></span>\n`;
   }
 
   // Scroll to bottom of input container if available
@@ -339,19 +338,33 @@ function showPreviousPage(element) {
   }
 }
 
+function toggleMute(button) {
+  const video = button.previousElementSibling;
 
-let pageMutedProjectTerminales = false
+  if (video.muted) {
+    video.muted = false;
+    button.textContent = "Mute";
+  } else {
+    video.muted = true;
+    button.textContent = "Unmute";
+  }
+}
+
+let pageMutedProjectTerminales = false;
+
 function muteThisPage() {
   const ambiance = document.getElementById('project-terminales-ambient-sfx');
-  if (pageMutedProjectTerminales === false) {
-    console.log("Muting page")
+  const muteButton = document.getElementById('mute-ambiance-btn');
+
+  if (!ambiance) return;
+
+  if (!pageMutedProjectTerminales) {
     ambiance.volume = 0;
-    muteButton.innerText = '🔊 Unmute';
+    muteButton.innerText = '🔊 Unmute Ambience';
     pageMutedProjectTerminales = true;
   } else {
-    console.log("Unmuting page")
     ambiance.volume = 1;
-    muteButton.innerText = '🔇 Mute';
+    muteButton.innerText = '🔇 Mute Ambience';
     pageMutedProjectTerminales = false;
   }
 }
@@ -359,7 +372,6 @@ function muteThisPage() {
 // --- Start --- //
 document.addEventListener('DOMContentLoaded', () => {
   console.log("Is home page loaded true/false: ", loadedHomePage);
-  muteButton.visible = false;
 
   if (loadedHomePage === false) {
       typeWriter_Letters(intro, () => {
@@ -459,7 +471,7 @@ let Sandbox_Simulation_Content = `
           cursor: pointer;
           font-weight: bold;
           margin-top: 0.7rem;
-          " onclick="window.open('assets/downloadable-content/sandbox-simulation-container.zip', '_blank')">
+          " onclick="window.open('assets/downloadable-content-projects/sandbox-simulation-container.zip', '_blank')">
           ⬇ Download Sandbox Project
         </button>
         
@@ -575,7 +587,7 @@ let UDP_Transfer_Protocol = `
     cursor: pointer;
     font-weight: bold;
     margin-top: 0.7rem;
-    " onclick="window.open('assets/downloadable-content/UDP Encryption Protocol Simulation.zip', '_blank')">
+    " onclick="window.open('assets/downloadable-content-projects/UDP Encryption Protocol Simulation.zip', '_blank')">
     ⬇ Download UDP Project
   </button>
 
@@ -658,7 +670,7 @@ let Wesbite_Security = `
     cursor: pointer;
     font-weight: bold;
     margin-top: 0.7rem;
-    " onclick="window.open('assets/downloadable-content/website-cyber-security.zip', '_blank')">
+    " onclick="window.open('assets/downloadable-content-projects/website-cyber-security.zip', '_blank')">
     ⬇ Download UDP Project
   </button>
 
@@ -687,8 +699,12 @@ let Wesbite_Security = `
 // 2. GAME PROJECTS ..
 // Page 1
 let Terminal_Game = ` 
-<center><h2 style="margin-top: 0;">Game 1: Project Terminales <br>An Immersive CYOA Data Profiling Game</h2></center>
+<center><h2 style="margin-top: 0;">Game 1: Project Terminales <br>A Psychological Horror CYOA Data Profiling Game</h2></center>
 <center><p style="color:#f93e3e; font-weight:bold;">Development Time 6 Months. Written in Godot Engine with GDScript.</p></center>
+
+<div id="ambiance-controls">
+  <button id="mute-ambiance-btn" onclick="muteThisPage()">🔇 Mute Ambience</button>
+</div>
 
 <br>
 
@@ -743,7 +759,7 @@ let Terminal_Game = `
   </section>
 
   <section class="section fade-in" style="animation-delay: 3s;">
-    <p class="project-terminales-intro">An ever shifting environment that warps around the players head...</p>
+    <p class="project-terminales-intro">An ever shifting environment that warps around the players mind...</p>
     <h2 class="project-terminales-h2">The Theme:</h2>
     <p class="project-terminales-content">The game explores themes of isolation, horror of human experimentations, and memory. 
     The player is trapped in an environment that will be constantly shifting and mirroring the psychological effects of their 
@@ -757,21 +773,87 @@ let Terminal_Game = `
     </p>
   </section>
 
-  <section class="section fade-in" style="animation-delay: 4s;">
-    <div class="video-container-project-terminales">
-      <center>
+
+  <section class="section fade-in" style="animation-delay:4s;">
+    <h2 class="trailer-title">GAME PROJECT TRAILER</h2>
+    <div class="terminales-showcase">
+      <div class="showcase-left">
         <video
-          src="assets/videos/PROJECT TRAILER - Terminales.mp4"
+          src="assets/videos//PROJECT TRAILER - Terminales.mp4"
           controls
           playsinline
-          style="max-width: 510px; border-radius: 1px; margin-top: 0.2rem; margin-bottom: 0.2rem;">
+          style="width: 100%; border-radius: 6px;">
         </video>
-      </center>
+      </div>
+      <div class="showcase-right">
+        <p class="branching-intro">Abstract Overview</p>
+
+        <p><strong>Project Terminales</strong> began as a side project during my university studies and was my first 
+        exploration into programming and 2D game development using Godot Engine and GDScript. While unfinished, it was a 
+        pivotal learning milestone that introduced me to the full development pipeline: from asset creation and level design 
+        to sound design, voice acting, and backend logic.</p>
+
+        <p>One of the project’s key innovations was the integration of <strong>data profiling</strong>. This allowed the game 
+        to adapt to the player's decision making by tracking engagement metrics, timing, and narrative choices. As opposed to 
+        designing rigid branching paths, the game dynamically tailors its story and environment to the player's 
+        behaviour, creating a more personalized and immersive experience.</p>
+
+        <p>While the project is currently on pause due to academic and work related priorities, I fully intend to return to 
+        it as I continue growing as a developer.</p>
+      </div>
+    </div>
+  </section>
+
+
+    <section class="section fade-in" style="animation-delay:5s;">
+    <div class="additional-content-container">
+      <p class="project-terminales-intro">A deeper dive into the psychological unraveling...</p>
+      <h2 class="project-terminales-h2">Supplementary Content:</h2>
+
+      <div class="additional-content-flex">
+        <!-- Video 1 -->
+        <div class="video-wrapper">
+          <video 
+            src="assets/videos/analgam-sciences-eval-report.mp4" 
+            autoplay 
+            loop 
+            muted 
+            playsinline 
+            class="supplementary-video">
+          </video>
+          <button class="mute-toggle" onclick="toggleMute(this)">Unmute</button>
+        </div>
+
+        <!-- Video 2 -->
+        <div class="video-wrapper">
+          <video 
+            src="assets/videos/inventory-system.mp4" 
+            autoplay 
+            loop 
+            muted 
+            playsinline 
+            class="supplementary-video">
+          </video>
+          <button class="mute-toggle" onclick="toggleMute(this)">Unmute</button>
+        </div>
+      </div>
+
+      <div class="project-terminales-content">
+        <p><strong>Snippet of narrative branching:</strong> <i>"The door groans open 
+        with the grinding of ancient gears, revealing only darkness as a faint shuffle drifts out, 
+        your stomach tightening just before a shadow moves. 
+        
+        <br></br>
+        
+        Your trembling flashlight catches glimpses of something angular 
+        and unnatural, its inhumanly tilted head gleaming with reflective eyes that vanish again 
+        into the darkness."</i>
+        </p>
+      </div>
     </div>
   </section>
 
 </body>
-
 
 <footer style="font-size: 0.8rem; color: #999; text-align: center; margin-top: 25px;">
   © 2025 Alex Perello Baque (SadJackfruit32). All rights reserved.<br>

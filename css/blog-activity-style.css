@@ -58,6 +58,7 @@ body, html {
 
 .blog-post {
   margin: 2rem auto;  
+  margin-bottom: 5rem;
   padding: 20px;
   flex-direction: column;
   max-width: 1700px;
@@ -95,19 +96,19 @@ body, html {
 }
 
 .post-body {
+  position: relative; 
   display: flex;
   border: 1px solid #444;
   border-top: none; 
   border-radius: 0 0 4px 4px;
-  background-color: #2a2a2a; 
-  overflow: hidden; 
+  background-color: #2a2a2a;
+  overflow: hidden;
 }
 
 .post-content {
   flex: 3; 
   font-size: 0.9rem;
   padding: 0.5rem 1rem;
-  white-space: pre-wrap;
   color: #ddd;
   text-align: left;
 }
@@ -118,4 +119,82 @@ body, html {
   background-color: #3b3b3b; 
   border-left: 1px solid #555;
   padding: 1rem;
+}
+
+
+
+
+
+
+
+
+
+/* FIRST POST */
+  .audio-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #222;
+    color: #fff;
+    border: none;
+    padding: 6px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    z-index: 10;
+  }
+
+  .ambience-zone {
+  position: relative;
+  }
+
+  .post-content h2 {
+  color: darkorange;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-bottom: 2px solid #ffb347;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.25rem;
+}
+
+.image-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.image-row img {
+  flex: 1;
+  min-width: 45%;
+  border-radius: 8px;
+  object-fit: cover;
+  max-height: 300px;
+}
+
+.download-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  background: darkorange;
+  color: black;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.download-btn:hover {
+  background: orange;
+}
+
+.seperator-blog-posts {
+  height: 200px;
+  background-color: transparent;
+}
+
+.seperator-subheader {
+  height: 10px;
 }

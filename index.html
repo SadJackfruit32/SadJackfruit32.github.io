@@ -7,6 +7,7 @@
 		<audio id="popup-close-sfx" src="assets/sounds/closeSFX.mp3" preload="auto"></audio>
 		<!--<audio id="ambient" src="assets/sounds/something-ambient.mp3" autoplay loop preload="auto"></audio>-->
 		<audio id="project-terminales-ambient-sfx" src="assets/sounds/project-terminales-ambient-SFX.wav" preload="auto"></audio>
+		
 				
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,13 +16,6 @@
 	</head>
 	
 	<body>
-		<div id="ambiance-controls">
-			<button id="mute-ambiance-btn" style="
-			" onclick="muteThisPage()">
-			🔇 Mute
-			</button>
-		</div>
-		
 		<header class="main-header">
 			<h1>Welcome to My Project Portfolio</h1>
 			<p>Feel free to explore, download some of the projects I've made, and uncover hidden secrets! You can utilise the terminal-like space I've designed below to navigate the site.</p>
@@ -37,6 +31,18 @@
 			<p2>However, this technical foundation supports a boarder creative ambition and passion, as I'm equally as driven by a long-term vision to create an indie styled, atmospheric games offering players an immersive experiences.</p2>
 		</section>
 		
+		<!--
+		
+		<div class="seperator"></div>
+
+		<section class="terminal-container">
+			<h2 class="latest-blog-post-blog-title">Latest Blog Post: "Designing psychological horror game mechanics"</h2>
+			<p class="latest-blog-post-blog-post-info">Test information about the blog post </p>
+			<a href="blog/designing-responsive-horror.html" class="latest-blog-post-blog-post-link">Read Full Post →</a>
+		</section>
+		
+		-->
+		
 		<div class="seperator"></div>
 		
 		<!-- TERMINAL-LIKE SPACE SECTION -->
@@ -47,7 +53,7 @@
 			</div>
 			
 			<!-- Input/Output History -->
-			<div class="terminal-display" id="user-history">
+			<div class="terminal-display-history" id="user-history">
 				<pre id="user-commands" class="orange-text"></pre>
 			</div>
 			
@@ -61,10 +67,8 @@
 		<div id="popup-container"></div> <!-- calling .popup-container from stylesheet -->
 		<script src="js/terminal-logic-script.js"></script>
 		
-	
-		
-		
-		
+		<div class="seperator"></div>
+
 	</body>
 	
 </html>
