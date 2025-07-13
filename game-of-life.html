@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang=""en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale= 1.0">
+    <title>Conways Game of Life</title>
+
+    <style>
+    body {
+        background: #111;
+        font-family: Arial, sans-serif;
+        color: #f93e3e;
+        height: 100%;
+
+    }
+
+    .game-container {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%) scale(0.95);
+        width: 600px;
+        max-width: 110%;
+        background: rgb(0 0 0 / 90%);
+        border: 2px solid #333;
+        border-radius: 8px;
+        padding: 20px;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        box-shadow: 0 0 10px #000;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: white;
+    }
+
+    p {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    canvas {
+        display: block;
+        margin: 0 auto 20px auto;
+        background: #000000;
+    }
+
+    .controls {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    button {
+        background: #222;
+        margin-bottom: 1rem;
+        color: #f93e3e;
+        border: 1px solid #f93e3e;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    button:hover {
+        background: #f93e3e;
+        color: #000;
+    }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h2>Conway's Game of Life</h2>
+        <p>
+            This is my attempt at developing Conway's Game of Life, a cellular simulation that uses simple rules 
+            to govern the behavior of cells on a grid, resulting in evolving patterns. <br><br>
+            Cells that are surrounded by only one neighbor will die, simulating underpopulation. Cells with more than 
+            three neighbors will also die, representing overpopulation. However, formations with two or three neighboring 
+            cells will survive and continue to evolve over time, creating dynamic patterns.
+        </p>
+
+        <canvas id="gameCanvas" width="500" height="500"></canvas>
+        <div class="controls">
+            <button id="startBtn">Start Game</button>
+            <button id="resetBtn">Reset Game</button>
+            <button class="return-button" onclick="window.location.href='index.html'">Return to Terminal</button>
+
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let cellSize = 5;
+        let cols = 100;
+        let rows = 100;
+        let grid = createGrid(cols, rows);
+        let animationId = null;
+        let speed = 24;
+
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = 500 * dpr;
+        canvas.height = 500 * dpr;
+        canvas.style.width = '500px';
+        canvas.style.height = '500px';
+
+        ctx.scale(dpr, dpr);
+
+
+        function createGrid(cols, rows) {
+            const grid = new Array(rows);
+            for (let i = 0; i < rows; i++) {
+                grid[i] = new Array(cols).fill(0);
+            }
+            return grid;
+        }
+
+        function drawGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#f93e3e';
+
+            for (let y = 0; y < rows; y++) {
+                for (let x = 0; x < cols; x++) {
+                    if (grid[y][x] === 1) {
+                        ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                    }
+                }
+            }
+        }
+
+        function detectNearbyPixels(grid, x, y) {
+            let count = 0;
+            for (let i = -1; i <= 1; i++) {
+                for (let j = -1; j <= 1; j++) {
+                    if (i === 0 && j === 0) continue;
+                    const col = (x + j + cols) % cols;
+                    const row = (y + i + rows) % rows;
+                    count += grid[row][col];
+                }
+            }
+            return count;
+        }
+
+        function updateGrid() {
+            const newGrid = createGrid(cols, rows);
+            for (let y = 0; y < rows; y++) {
+                for (let x = 0; x < cols; x++) {
+                    const neighbors = detectNearbyPixels(grid, x, y);
+                    if (grid[y][x] === 1) {
+                        // Alive cell 
+                        if (neighbors === 2 || neighbors === 3) {
+                            newGrid[y][x] = 1;
+                        } else {
+                        newGrid[y][x] = 0;
+                        }
+                    } else {
+                        // Dead cell
+                        if (neighbors === 3) {
+                            newGrid[y][x] = 1;
+                        }
+                    }
+                }
+            }
+            grid = newGrid;
+        }
+
+        function randomizeGrid() {
+            for (let y = 0; y < rows; y++) {
+                for (let x = 0; x < cols; x++) {
+                    grid[y][x] = Math.random() > 0.8? 1 : 0;
+                }
+            }
+        }
+
+        function loop() {
+            drawGrid();
+            updateGrid();
+            animationId = setTimeout(loop, speed);
+        }
+
+        function startGameOfLife() {
+            randomizeGrid();
+            loop();
+        }
+
+        function restartGameOfLife() {
+            if (animationId) {
+                clearTimeout(animationId);
+                animationId = null;
+            }
+            grid = createGrid(cols, rows);
+            drawGrid();
+        }
+
+        // Buttons
+        document.getElementById('startBtn').addEventListener('click', startGameOfLife);
+        document.getElementById('resetBtn').addEventListener('click', restartGameOfLife);
+
+    </script>
+</body>
+</html>

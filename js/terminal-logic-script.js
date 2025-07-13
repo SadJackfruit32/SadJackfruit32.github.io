@@ -20,7 +20,7 @@ const openSFX = document.getElementById('popup-open-sfx');
 const closeSFX = document.getElementById('popup-close-sfx');
 const ambience = document.getElementById('ambient');
 
-
+let gameOfLifeCase = false;
 
 const projectTerminalesAmbiance = document.getElementById('project-terminales-ambient-sfx');
 
@@ -31,7 +31,8 @@ const commands = [
   "2. Game Projects",
   "3. Contact Me",
   "",
-  "4. Blog Activity"
+  "4. Blog Activity",
+  "5. Game of Life"
 ];
 
 // --- Ready --- ///
@@ -98,7 +99,6 @@ function handleCommand(text) {
     case 'developer':
     case 'developer project':
     case 'developer projects':
-    case 'd':
       playSound(openSFX);
       title = 'Developer Projects';
       output = Sandbox_Simulation_Content;
@@ -109,7 +109,6 @@ function handleCommand(text) {
     case 'game':
     case 'game project':
     case 'game projects':
-    case 'g':
       playSound(openSFX);
       playSound(projectTerminalesAmbiance);
       title = 'Game Projects';
@@ -120,7 +119,6 @@ function handleCommand(text) {
     case '3.':
     case 'contact me':
     case 'contact':
-    case 'c':
       playSound(openSFX);
       title = 'Contact Me';
       output = Contact_Me_Content;
@@ -131,12 +129,23 @@ function handleCommand(text) {
     case 'blog activity':
     case 'blog':
     case 'activity':
-    playSound(openSFX);
-    redirected = true; 
-    setTimeout(() => {
-      sessionStorage.setItem('homepageVisited', 'true');
-      window.location.href = 'blog-activity.html';
-    }, 1300); 
+      playSound(openSFX);
+      redirected = true; 
+      setTimeout(() => {
+        sessionStorage.setItem('homepageVisited', 'true');
+        window.location.href = 'blog-activity.html';
+      }, 1400); 
+    break;
+
+    case '5':
+    case '5.':
+    case 'game of life':
+      playSound(openSFX);
+      redirected = true;
+            setTimeout(() => {
+        sessionStorage.setItem('homepageVisited', 'true');
+        window.location.href = 'game-of-life.html';
+      }, 1400); 
     break;
 
     default:
@@ -144,9 +153,12 @@ function handleCommand(text) {
       break;
   }
 
-  if (!unknown && !redirected) {
+  if (!unknown && !redirected && !gameOfLifeCase) {
     userInput.innerHTML += `> ${text}\n`;
     createPopup(title, output);
+  } else if (gameOfLifeCase) {
+    gameOfLifeCase = false;
+    createPopupGameOfLife(title, output);
   } else if (unknown) {
     console.log("Unknown command entered by user...");
     userInput.innerHTML += `<span style="color:red;">>Unknown command: <strong>${text}</strong></span>\n`;
@@ -157,7 +169,6 @@ function handleCommand(text) {
     userInput.parentElement.scrollTop = userInput.parentElement.scrollHeight;
   }
 }
-
 
 // --- Event Listener (Handle Inputs) --- //
 input.addEventListener('keydown', function (e) {
@@ -313,9 +324,6 @@ function popupBehaviors(popup) {
 }
 
 
-// LETS DO THE PAGES LIKE THIS AND CYCLE THROUGH THEM INSTEAD OF HAVING
-// MULTIPLE FUNCTIONS
-// WE ARE MISSING THE THIRD PAGE CONTAINING OUR PROJECT ON NETWORK AND WEBSITE SECURITY
 function showNextPage(element) {
   const popup = element.closest('.popup-terminal');
   const contentNextPage = popup.querySelector('.popup-content');
@@ -488,13 +496,15 @@ let Sandbox_Simulation_Content = `
           " onclick="showNextPage(this)">
           ➡ Next Page
         </button>
-
+        
         <br>
 
   <footer style="font-size: 0.8rem; color: #999; text-align: center; margin-top: 25px;">
     © 2025 Alex Perello Baque (SadJackfruit32). All rights reserved.<br>
     Project Sandbox Simulation is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener">CC BY-NC-ND 4.0</a>.
-  </footer>
+    <br><br>
+    Page 1/4
+    </footer>
   `;
 
 // Page 2
@@ -622,7 +632,9 @@ let UDP_Transfer_Protocol = `
   <footer style="font-size: 0.8rem; color: #999; text-align: center; margin-top: 25px;">
     © 2025 Alex Perello Baque (SadJackfruit32). All rights reserved.<br>
     The project UDP Encryption Protocol Simulation is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener">CC BY-NC-ND 4.0</a>.
-  </footer>
+    <br><br>
+    Page 2/4
+    </footer>
   `;
 
 // Page 3
@@ -671,10 +683,11 @@ let Wesbite_Security = `
     font-weight: bold;
     margin-top: 0.7rem;
     " onclick="window.open('assets/downloadable-content-projects/website-cyber-security.zip', '_blank')">
-    ⬇ Download UDP Project
+    ⬇ Download Cyber Security Project
   </button>
 
   <br>
+
   <button style="
     background-color: #6c757d;
     color: white;
@@ -688,12 +701,75 @@ let Wesbite_Security = `
     ⬅ Back
   </button>
 
+  <button style="
+    background-color: #007bff;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 0.5rem;
+    " onclick="showNextPage(this)">
+    ➡ Next Page
+  </button>
+
 
   <footer style="font-size: 0.8rem; color: #999; text-align: center; margin-top: 40px;">
     © 2025 Alex Perello Baque (SadJackfruit32). All rights reserved.<br>
     The project Website Cybersecurity is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener">CC BY-NC-ND 4.0</a>.
+    <br><br>
+    Page 3/4
   </footer>
   
+`;
+
+// Page 4
+let Conways_Game_Of_Life = `
+  <center><h2 style="margin-top: 0;">Project 4: Game of Life</h2></center>
+  <center>
+    <p style="color:#f93e3e; font-weight:bold;">
+      You can also access this game using the terminal-like space by entering "game of life".
+      <br><br>
+      Written in javascript.
+    </p>
+    <img src="assets/images/conways-game-of-life-preview.png" style="max-width: 550px; height: auto; border-radius: 4px; margin-top: 0.5rem;">
+
+    <br>
+
+    <a href="game-of-life.html" style="
+      display: inline-block;
+      background-color: #f93e3e;
+      color: black;
+      font-weight: bold;
+      padding: 0.5rem 1.2rem;
+      margin-top: 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.2s;
+    " onmouseover="this.style.backgroundColor='#ff5c5c'" onmouseout="this.style.backgroundColor='#f93e3e'">
+      ▶ Play Conway's Game of Life
+    </a>
+
+    <br>
+
+    <button style="
+      background-color: #6c757d;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 1rem;
+    " onclick="showPreviousPage(this)">
+      ⬅ Back
+    </button>
+
+    <footer style="font-size: 0.8rem; color: #999; text-align: center; margin-top: 40px;">
+      Page 4/4
+    </footer>
+  </center>
 `;
 
 // 2. GAME PROJECTS ..
@@ -893,7 +969,7 @@ let Contact_Me_Content = `
 `;
 
 
-let devProjectPages = [Sandbox_Simulation_Content, UDP_Transfer_Protocol, Wesbite_Security];
+let devProjectPages = [Sandbox_Simulation_Content, UDP_Transfer_Protocol, Wesbite_Security, Conways_Game_Of_Life];
 let gameProjectPages = [Terminal_Game]
 let currentPage = 0;
 

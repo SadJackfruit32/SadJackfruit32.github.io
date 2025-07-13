@@ -59,8 +59,8 @@ body, html {
 .terminal-display {
   /* --- Terminal Display Style --- */
   background-color: #1e1e1e;
-  height: 130px;           
-  max-height: 130px;       
+  height: 150px;           
+  max-height: 150px;       
   padding: 1rem;
   border-radius: 6px;
   border: 1px solid #333;
